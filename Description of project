@@ -1,0 +1,32 @@
+В проекте 7 классов:
+1. Participant - Абстрактный класс
+2. Heroe - наследник Participant
+3. Goblin - наследник Participant
+4. Skeleton - наследник Participant
+5. Trader
+6. WorldOfMonstersAndHeroes - метод main
+
+
+Participant основное назначение:
+1. Реализация силы удара в методе  public int attack()
+
+Heroe основное назначение:
+1. Главный герой
+
+Goblin основное назначение:
+1. Возможный 2ой Главный герой
+
+Skelet onосновное назначение:
+1. Возможный 2ой Главный герой
+
+Battle основное назначение:
+1. В классе реализованы методы для создания персонажей
+a) public Participant createMonster()
+b) public Participant createHeroe()
+2. public static void battle(Participant forward, Participant defender) - реализована логика сражения в зависимости от силы удара
+3. public static void processButtle(Participant forward, Participant defender) - процесс сражения между двумя персонажами вынесен в данный метод
+4. public static void finalBattle(Participant heroe, Participant monster) - финальная битва с учетом выбора персонажем очередного хода
+5. public static void bigMenu(Participant participant) - выбор хода игрока, меню
+6. public static void sellPosion(Participant heroe, Participant monster, Trader trader) - у героя есть возможность купить зелье, чтобы
+увеличить здоровье
+7. public void run() - всё сражение реализовано в отдельном потоке
