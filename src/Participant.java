@@ -34,7 +34,7 @@ public abstract class Participant {
 
     public void setGold(int gold) {
         if (getGold() <= 0) {
-            setGold(0);
+            this.gold = 0;
             System.out.println("Золото закончилось!");
         }
         this.gold = gold;

@@ -16,14 +16,17 @@ public class Battle extends Thread{
     public Participant createHeroe() {
         return new Heroe("Герой", 17, 5, 3, 2, 5);
     }
+    public Trader createTrader() {
+        return new Trader("Торговец зельем");
+    }
 
     @Override
     public void run() {
-        finalBattle(createHeroe(), createMonster());
+        finalBattle(createHeroe(), createMonster(), createTrader());
     }
 
-    public static void finalBattle(Participant heroe, Participant monster) {
-        Trader trader = new Trader("Торговец зельем");
+    public static void finalBattle(Participant heroe, Participant monster, Trader trader) {
+//        Trader trader = new Trader("Торговец зельем");
 
         bigMenu(heroe);
 
@@ -32,7 +35,7 @@ public class Battle extends Thread{
 
             switch (num) {
                 case "1":
-                    sellPosion(heroe, monster, trader);
+                    trader.sellPosion(heroe, monster, trader);
                     break;
                 case "2":
                     Battle.processButtle(heroe, monster);
@@ -53,42 +56,14 @@ public class Battle extends Thread{
         System.out.println("3. На выход");
         System.out.println("Укажи цифру 1 2 или 3\n");
     }
-    public static void sellPosion(Participant heroe, Participant monster, Trader trader) {
-        System.out.println(heroe.getName() + ", чтобы продолжать сражаться мне нужно больше сил. Продай мне свое зелье.");
-        System.out.println("Хорошо, у меня есть 2 вида зелья: ");
-        System.out.println("1. " + trader.getPosion1());
-        System.out.println("2. " + trader.getPosion2());
-        System.out.println("Выпив первое твое здоровье увеличится втрое, но стоит оно 3 слитка золота.");
-        System.out.println("Выпив второе твое здоровье увеличится вдвое, но стоит оно 2 слитка золота.");
-        System.out.println("Выбери цифру 1 или 2");
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            String st = br.readLine();
-            switch (st) {
-                case "1":
-                    System.out.println(heroe.getName() + ", твое здоровье было HEALTH: " + heroe.getHealth());
-                    heroe.setHealth(heroe.getHealth() * 3);
-                    System.out.println("Выпив зелья здоровье увеличилось вдвое HEALTH: " + heroe.getHealth());
-                    heroe.setGold(heroe.getGold() - 3);
-                    trader.setPosion(trader.getPosion() - 1);
-                    finalBattle(heroe, monster);
-                case "2":
-                    System.out.println(heroe.getName() + ", твое здоровье было HEALTH: " + heroe.getHealth());
-                    heroe.setHealth(heroe.getHealth() * 2);
-                    System.out.println("Выпив зелья здоровье увеличилось вдвое HEALTH: " + heroe.getHealth());
-                    heroe.setGold(heroe.getGold() - 2);
-                    trader.setPosion(trader.getPosion() - 1);
-                    finalBattle(heroe, monster);
-                    break;
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void processButtle(Participant forward, Participant defender) {
         while (forward.getHealth() >= 0 && defender.getHealth() >= 0) {
             battle(forward, defender);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             battle(defender, forward);
         }
     }
