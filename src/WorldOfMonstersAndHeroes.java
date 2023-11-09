@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class WorldOfMonstersAndHeroes {
     public static void main(String[] args) {
-        Battle battle = new Battle();
-        battle.start();
+        Battle.finalBattle(Battle.createHeroe(), Battle.createMonster(), Battle.createTrader());
     }
 }

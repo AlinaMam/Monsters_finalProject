@@ -2,10 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Battle extends Thread{
+public class Battle extends Thread {
     private static final float NUM = 0.5f;
 
-    public Participant createMonster() {
+    public static Participant createMonster() {
         if (Math.random() >= NUM) {
             return new Goblin("Гоблин", 25, 5, 7, 8, 9);
         } else {
@@ -13,36 +13,37 @@ public class Battle extends Thread{
         }
     }
 
-    public Participant createHeroe() {
+    public static Participant createHeroe() {
         return new Heroe("Герой", 17, 5, 3, 2, 5);
     }
-    public Trader createTrader() {
+
+    public static Trader createTrader() {
         return new Trader("Торговец зельем");
     }
 
     @Override
     public void run() {
-        finalBattle(createHeroe(), createMonster(), createTrader());
+        processButtle(createHeroe(), createMonster());
     }
 
     public static void finalBattle(Participant heroe, Participant monster, Trader trader) {
-//        Trader trader = new Trader("Торговец зельем");
-
         bigMenu(heroe);
 
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String num = br.readLine();
 
-            switch (num) {
-                case "1":
-                    trader.sellPosion(heroe, monster, trader);
-                    break;
-                case "2":
-                    Battle.processButtle(heroe, monster);
-                    break;
-                case "3":
-                    System.out.println("Я выхожу из игры!");
-                    System.exit(0);
+            while (true) {
+                switch (num) {
+                    case "1":
+                        trader.sellPosion(heroe, monster, trader);
+                        break;
+                    case "2":
+                        Battle.processButtle(heroe, monster);
+                        break;
+                    case "3":
+                        System.out.println("Я выхожу из игры!");
+                        System.exit(0);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,6 +57,7 @@ public class Battle extends Thread{
         System.out.println("3. На выход");
         System.out.println("Укажи цифру 1 2 или 3\n");
     }
+
     public static void processButtle(Participant forward, Participant defender) {
         while (forward.getHealth() >= 0 && defender.getHealth() >= 0) {
             battle(forward, defender);
