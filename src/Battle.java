@@ -59,7 +59,7 @@ public class Battle extends Thread {
     }
 
     public static void processButtle(Participant forward, Participant defender) {
-        while (forward.getHealth() >= 0 && defender.getHealth() >= 0) {
+        while (forward.getHealth() > 0 && defender.getHealth() > 0) {
             battle(forward, defender);
             try {
                 Thread.sleep(1000);
@@ -72,21 +72,25 @@ public class Battle extends Thread {
 
     public static void battle(Participant forward, Participant defender) {
         int power = forward.attack();
+        System.out.println("Характеристики " + forward.getName() + " перед началом боя: ");
+        System.out.println("HEALTH: " + forward.getHealth());
+        System.out.println("GOLD: " + forward.getGold());
+        System.out.println("EXPERIENCE: " + forward.getExperience());
+        System.out.println();
         if (power != 0) {
             defender.setHealth(defender.getHealth() - power);
-
             if (defender.getHealth() < 0) {
                 defender.setHealth(0);
             }
-
-            System.out.println(forward.getName() + " наносит удар по " + defender.getName() + " в размере " + power);
+            System.out.println(forward.getName() + " наносит удар по " + defender.getName() + " в размере " + power + "\n");
             System.out.println("Здоровье " + defender.getName() + " уменьшается на величину удара " + power);
-            System.out.println("HEALTH " + defender.getName() + ": " + defender.getHealth());
-
+            System.out.println("HEALTH: " + defender.getHealth());
+            System.out.println("GOLD: " + defender.getGold());
+            System.out.println("EXPERIENCE: " + defender.getExperience() + "\n");
             if ((defender.getHealth() == 0) && (forward instanceof Heroe)) {
                 forward.setGold(forward.getGold() + 1);
                 forward.setExperience(forward.getExperience() + 1);
-                System.out.println(forward.getName() + " победил " + defender.getName() + " и получил GOLD: " + forward.getGold() + " и EXPERIENCE: " + forward.getGold());
+                System.out.println(forward.getName() + " победил " + defender.getName() + " и получил GOLD: " + forward.getGold() + " и EXPERIENCE: " + forward.getExperience() + "\n");
             }
             if ((defender.getHealth() == 0) && (forward instanceof Goblin || forward instanceof Skeleton)) {
                 System.out.println(forward.getName() + " одержал победу");
