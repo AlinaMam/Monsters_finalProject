@@ -77,6 +77,7 @@ public class Battle extends Thread {
         System.out.println("GOLD: " + forward.getGold());
         System.out.println("EXPERIENCE: " + forward.getExperience());
         System.out.println();
+
         if (power != 0) {
             defender.setHealth(defender.getHealth() - power);
             if (defender.getHealth() < 0) {
