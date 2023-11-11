@@ -71,6 +71,7 @@ public class Battle extends Thread {
     }
 
     public static void battle(Participant forward, Participant defender) {
+
         int power = forward.attack();
         System.out.println("Характеристики " + forward.getName() + " перед началом боя: ");
         System.out.println("HEALTH: " + forward.getHealth());
